@@ -87,6 +87,7 @@ static inline unsigned long compact_gap(unsigned int order)
 extern int sysctl_compact_memory;
 extern int sysctl_compaction_handler(struct ctl_table *table, int write,
 			void __user *buffer, size_t *length, loff_t *ppos);
+extern void trigger_proactive_compaction(bool sysctl);
 extern int sysctl_extfrag_threshold;
 extern int sysctl_extfrag_handler(struct ctl_table *table, int write,
 			void __user *buffer, size_t *length, loff_t *ppos);
@@ -228,8 +229,8 @@ static inline void wakeup_kcompactd(pg_data_t *pgdat, int order, int classzone_i
 
 #endif /* CONFIG_COMPACTION */
 
-#if defined(CONFIG_COMPACTION) && defined(CONFIG_SYSFS) && defined(CONFIG_NUMA)
 struct node;
+#if defined(CONFIG_COMPACTION) && defined(CONFIG_SYSFS) && defined(CONFIG_NUMA)
 extern int compaction_register_node(struct node *node);
 extern void compaction_unregister_node(struct node *node);
 
