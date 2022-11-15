@@ -5,7 +5,6 @@
  *               does not allow adding attributes.
  *
  * Copyright (c) 2004 Jon Smirl <jonsmirl@gmail.com>
- * Copyright (C) 2021 XiaoMi, Inc.
  * Copyright (c) 2003-2004 Greg Kroah-Hartman <greg@kroah.com>
  * Copyright (c) 2003-2004 IBM Corp.
  *
@@ -45,7 +44,6 @@ static struct device_type drm_sysfs_device_minor = {
 };
 
 struct class *drm_class;
-struct device *connector_kdev;
 
 static char *drm_devnode(struct device *dev, umode_t *mode)
 {
@@ -280,9 +278,6 @@ int drm_sysfs_connector_add(struct drm_connector *connector)
 					  connector->name);
 	DRM_DEBUG("adding \"%s\" to sysfs\n",
 		  connector->name);
-
-	if (!connector_kdev)
-		connector_kdev = connector->kdev;
 
 	if (IS_ERR(connector->kdev)) {
 		DRM_ERROR("failed to register connector device: %ld\n", PTR_ERR(connector->kdev));

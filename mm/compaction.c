@@ -2453,31 +2453,6 @@ static void compact_nodes(void)
 int sysctl_compact_memory;
 
 /*
- * Tunable for proactive compaction. It determines how
- * aggressively the kernel should compact memory in the
- * background. It takes values in the range [0, 100].
- */
-unsigned int __read_mostly sysctl_compaction_proactiveness = 20;
-unsigned int __read_mostly sysctl_compaction_proactiveness_screen_off = 40;
-
-void trigger_proactive_compaction(bool sysctl)
-{
-	int nid;
-
-	for_each_online_node(nid) {
-		pg_data_t *pgdat = NODE_DATA(nid);
-
-		if (sysctl) {
-			if (pgdat->proactive_compact_trigger)
-				continue;
-
-			pgdat->proactive_compact_trigger = true;
-		}
-		wake_up_interruptible(&pgdat->kcompactd_wait);
-	}
-}
-
-/*
  * This is the entry point for compacting all nodes via
  * /proc/sys/vm/compact_memory
  */
