@@ -340,7 +340,6 @@ static void nav_event_input(struct gf_dev *gf_dev, gf_nav_event_t nav_event)
 static long gf_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
 {
 	struct gf_dev *gf_dev = &gf;
-	struct gf_key gf_key;
 #if defined(SUPPORT_NAV_EVENT)
 	gf_nav_event_t nav_event = GF_NAV_NONE;
 #endif
